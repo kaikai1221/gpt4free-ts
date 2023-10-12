@@ -39,6 +39,12 @@ export class AcyToo extends Chat {
     switch (model) {
       case ModelType.GPT3p5Turbo:
         return 4000;
+      case ModelType.GPT3p5_16k:
+        return 4000;
+      case ModelType.GPT4:
+        return 4000;
+      case ModelType.GPT4_32k:
+        return 4000;
       default:
         return 0;
     }
