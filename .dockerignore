@@ -1,4 +1,6 @@
-run/
-node_modules/
+fly.toml
+Dockerfile
+.dockerignore
+node_modules
 .git
-.idea
+.yarn/

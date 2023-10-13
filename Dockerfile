@@ -1,6 +1,21 @@
-FROM ghcr.io/puppeteer/puppeteer:20.5.0
+# syntax = docker/dockerfile:1
 
-USER root
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=18.16.0
+FROM node:${NODE_VERSION}-slim as base
+
+LABEL fly_launch_runtime="NodeJS"
+
+# NodeJS app lives here
+WORKDIR /app
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install -y python-is-python3 pkg-config build-essential 
+
 
 WORKDIR /usr/src/build
 
@@ -18,6 +33,8 @@ RUN npm run build && \
     rm -rf /usr/src/build
 
 WORKDIR /usr/src/app
+
+COPY run /usr/src/app/
 
 VOLUME [ "/usr/src/app/run" ]
 

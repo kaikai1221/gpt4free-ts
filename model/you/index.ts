@@ -72,12 +72,18 @@ export class You extends Chat {
     }
 
     support(model: ModelType): number {
-        switch (model) {
-            case ModelType.GPT3p5Turbo:
-                return 2000;
-            default:
-                return 0;
-        }
+      switch (model) {
+        case ModelType.GPT3p5Turbo:
+          return 2000;
+        case ModelType.GPT3p5_16k:
+          return 15000;
+        case ModelType.GPT4:
+          return 6000;
+        case ModelType.GPT4_32k:
+          return 30000;
+        default:
+          return 0;
+      }
     }
 
     private async request(req: ChatRequest) {
