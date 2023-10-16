@@ -20,10 +20,10 @@ const modelMap = {
         id: "gpt-4",
         name: "GPT-4"
     },
-    [ModelType.GPT3p5_16k]: {id: "gpt-3.5-turbo-16k", name: "GPT-3.5-TURBO-16K"},
+    [ModelType.GPT3p5_16k]: {id: "gpt-3.5-turbo-16k", name: "GPT-3.5-16K"},
     [ModelType.GPT3p5Turbo]: {
         id: "gpt-3.5-turbo",
-        name: "GPT-3.5-TURBO"
+        name: "GPT-3.5"
     },
 } as Record<ModelType, Model>
 
@@ -46,13 +46,18 @@ export class VVM extends Chat {
             headers: {
                 'Content-Type': 'application/json',
                 "Cache-Control": "no-cache",
-                "Proxy-Connection": "keep-alive"
+                "Proxy-Connection": "keep-alive",
+                "Origin": "https://chat.aivvm.com",
+                "Referer":"https://chat.aivvm.com/zh",
+                "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
             }
         } as CreateAxiosDefaults);
     }
 
     support(model: ModelType): number {
         switch (model) {
+            case ModelType.GPT4_32k:
+                return 10000;
             case ModelType.GPT4:
                 return 5000;
             case ModelType.GPT3p5Turbo:
